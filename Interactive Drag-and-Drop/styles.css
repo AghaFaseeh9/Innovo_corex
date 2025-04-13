@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a8a4e6;
+    --accent-color: #fd79a8;
+    --background-color: #f0f2f5;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-color: #2d3436;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background: var(--background-color);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(253, 121, 168, 0.1) 0%, transparent 20%);
+    min-height: 100vh;
+    color: var(--text-color);
+    perspective: 1000px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px var(--shadow-color);
+    transform: translateZ(20px);
+    transition: transform 0.3s ease;
+}
+
+h1:hover {
+    transform: translateZ(30px) scale(1.05);
+}
+
+.upload-section {
+    text-align: center;
+    margin-bottom: 40px;
+    transform: translateZ(10px);
+}
+
+#imageInput {
+    display: none;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.upload-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.upload-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(108, 92, 231, 0.3);
+}
+
+.upload-btn:hover:before {
+    opacity: 1;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    perspective: 1000px;
+}
+
+.gallery-item {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: move;
+    transform-style: preserve-3d;
+    transform: translateZ(0) rotateX(0) rotateY(0);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.gallery-item:hover {
+    transform: translateZ(30px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    color: var(--text-color);
+    transform: translateZ(20px);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    transform: translateZ(30px) scale(1.1);
+}
+
+.gallery-item.dragging {
+    opacity: 0.7;
+    transform: translateZ(50px) scale(0.95);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(0);
+    transition: transform 0.5s ease;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateZ(50px);
+    transition: transform 0.5s ease;
+}
+
+.modal-content img:hover {
+    transform: translateZ(70px) scale(1.02);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn:hover {
+    transform: scale(1.2) rotate(90deg);
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--glass-bg);
+    color: white;
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    z-index: 1001;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .gallery-item img {
+        height: 200px;
+    }
+
+    .nav-btn {
+        padding: 15px;
+        font-size: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .gallery-item img {
+        height: 160px;
+    }
+    
+    .upload-btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+} 
