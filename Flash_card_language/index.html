@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Language Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-poppins min-h-screen bg-[#0F172A] text-white">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 pointer-events-none">
+        <!-- Animated gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 opacity-20"></div>
+        
+        <!-- Floating shapes -->
+        <div class="absolute top-1/4 left-1/4 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 bg-blue-500/20 rounded-full blur-xl animate-spin-slow"></div>
+        <div class="absolute top-1/3 right-1/4 w-20 sm:w-32 md:w-40 h-20 sm:h-32 md:h-40 bg-purple-500/20 rounded-full blur-xl animate-spin-slow" style="animation-delay: -2s;"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-16 sm:w-28 md:w-36 h-16 sm:h-28 md:h-36 bg-pink-500/20 rounded-full blur-xl animate-spin-slow" style="animation-delay: -4s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 overflow-y-auto">
+        <!-- 3D Animated Title -->
+        <div class="text-center mb-8 sm:mb-12 animate-slide-up" style="animation-delay: 0.2s;">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 animate-float">
+                <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
+                    Language Flashcards
+                </span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto animate-fade-in px-4 sm:px-6" style="animation-delay: 0.5s;">
+                Master new languages with interactive flashcards. Learn at your own pace with our intuitive learning system.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto mb-8 sm:mb-12 animate-fade-in px-4 sm:px-6" style="animation-delay: 0.8s;">
+            <div class="text-center p-4 sm:p-6 bg-white/5 backdrop-blur-lg rounded-2xl transform hover:scale-105 transition-all duration-300">
+                <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🌍</div>
+                <h3 class="text-base sm:text-lg font-semibold mb-2">Multiple Languages</h3>
+                <p class="text-sm sm:text-base text-gray-400">Learn English, Turkish, and German</p>
+            </div>
+            <div class="text-center p-4 sm:p-6 bg-white/5 backdrop-blur-lg rounded-2xl transform hover:scale-105 transition-all duration-300">
+                <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">⚡</div>
+                <h3 class="text-base sm:text-lg font-semibold mb-2">Interactive Learning</h3>
+                <p class="text-sm sm:text-base text-gray-400">Flip cards and track progress</p>
+            </div>
+            <div class="text-center p-4 sm:p-6 bg-white/5 backdrop-blur-lg rounded-2xl transform hover:scale-105 transition-all duration-300">
+                <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🎯</div>
+                <h3 class="text-base sm:text-lg font-semibold mb-2">Different Levels</h3>
+                <p class="text-sm sm:text-base text-gray-400">From beginner to advanced</p>
+            </div>
+        </div>
+
+        <!-- Get Started Button -->
+        <a href="main.html" class="group relative inline-flex items-center justify-center p-1 mb-2 overflow-hidden text-base sm:text-lg font-medium rounded-full hover:scale-105 transition-all duration-300 animate-bounce-slow">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500"></span>
+            <span class="absolute bottom-0 right-0 block w-48 sm:w-64 h-48 sm:h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-pink-500 opacity-30 group-hover:rotate-90 ease"></span>
+            <span class="relative px-6 sm:px-8 py-3 sm:py-4 bg-[#0F172A] rounded-full group-hover:bg-opacity-0 transition-all duration-500">
+                Get Started
+                <svg class="inline-block ml-2 w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </span>
+        </a>
+    </div>
+
+    <!-- Loading Animation -->
+    <script>
+        document.querySelector('a').addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.add('scale-90');
+            setTimeout(() => {
+                window.location.href = this.getAttribute('href');
+            }, 300);
+        });
+    </script>
+</body>
+</html>

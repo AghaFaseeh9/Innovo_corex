@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                        accent: '#EC4899',
+                        turkish: {
+                            red: '#E30A17',
+                            white: '#FFFFFF'
+                        },
+                        german: {
+                            black: '#000000',
+                            red: '#DD0000',
+                            yellow: '#FFCE00'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite',
+                        'shine': 'shine 2s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'slide-out': 'slideOut 0.3s ease-in'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%, 100%': { opacity: '0.5' },
+                            '50%': { opacity: '0.8' },
+                        },
+                        shine: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' },
+                        },
+                        pulse: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.5' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' }
+                        },
+                        slideOut: {
+                            '0%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body class="font-poppins min-h-screen bg-white dark:bg-[#0F172A] text-black dark:text-white p-4 sm:p-6 transition-colors duration-300">
+    <!-- Theme Toggle, Settings, and Add Card Buttons -->
+    <div class="fixed top-4 left-4 z-50 flex space-x-2">
+        <button id="theme-toggle" class="p-2 sm:p-3 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 shadow-lg" title="Toggle Theme">
+            <!-- Dark Mode Icon -->
+            <svg id="dark-icon" class="w-5 h-5 sm:w-6 sm:h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <!-- Light Mode Icon -->
+            <svg id="light-icon" class="w-5 h-5 sm:w-6 sm:h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+        </button>
+        <button id="help-btn" class="p-2 sm:p-3 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 shadow-lg" title="Keyboard Shortcuts">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="fixed top-4 right-4 z-50">
+        <button id="add-card-btn" class="p-2 sm:p-3 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 shadow-lg">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div class="container max-w-4xl mx-auto min-h-screen flex flex-col pt-16 sm:pt-20">
+        <!-- Header -->
+        <header class="text-center mb-8 sm:mb-12 relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-3xl"></div>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold relative animate-float">
+                <span class="bg-gradient-to-r from-primary via-secondary to-accent text-transparent bg-clip-text">
+                    Language Flashcards
+                </span>
+            </h1>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl shadow-xl mb-8 sm:mb-12 p-4 sm:p-8 transform hover:scale-[1.02] transition-all duration-300">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                <select id="language-select" class="col-span-full md:col-span-1 bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <option value="english" class="bg-[#0F172A] text-white">English</option>
+                    <option value="turkish" class="bg-[#0F172A] text-white">Turkish 🇹🇷</option>
+                    <option value="german" class="bg-[#0F172A] text-white">German 🇩🇪</option>
+                </select>
+                <select id="difficulty-select" class="col-span-full md:col-span-1 bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <option value="beginner" class="bg-[#0F172A] text-white">Beginner</option>
+                    <option value="intermediate" class="bg-[#0F172A] text-white">Intermediate</option>
+                    <option value="advanced" class="bg-[#0F172A] text-white">Advanced</option>
+                </select>
+                <button id="flip-card" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <span class="relative z-10">Flip Card</span>
+                </button>
+                <button id="next-card" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <span class="relative z-10">Next</span>
+                </button>
+                <button id="shuffle-cards" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <span class="relative z-10">Shuffle</span>
+                </button>
+                <button id="reset" class="bg-gradient-to-r from-primary to-secondary text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl border-none cursor-pointer transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent relative overflow-hidden group text-sm sm:text-base">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine"></div>
+                    <span class="relative z-10">Reset</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Flashcard Container -->
+        <div class="relative mx-auto mb-8 sm:mb-12 w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] aspect-[3/2] perspective-1000 cursor-pointer group">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-xl rounded-2xl animate-glow"></div>
+            <div id="flashcard" class="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:scale-105">
+                <div class="absolute inset-0 backface-hidden bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl flex items-center justify-center p-4 sm:p-8">
+                    <span id="word" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-center">Word</span>
+                </div>
+                <div class="absolute inset-0 backface-hidden bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl flex items-center justify-center p-4 sm:p-8 rotate-y-180">
+                    <span id="translation" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-center">Translation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl shadow-xl text-center py-3 sm:py-4 px-4 sm:px-8 inline-block min-w-[180px] sm:min-w-[200px] transform hover:scale-105 transition-all duration-300">
+            <span class="text-base sm:text-xl tracking-wide">
+                Card 
+                <span id="current-card" class="font-bold text-xl sm:text-2xl text-primary mx-1 animate-pulse-slow">1</span>
+                <span class="text-gray-400">/</span>
+                <span id="total-cards" class="font-bold text-xl sm:text-2xl text-accent mx-1">10</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Add Custom Card Modal -->
+    <div id="add-card-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-[#1E293B] rounded-2xl p-4 sm:p-8 max-w-md w-full mx-4 transform transition-all duration-300">
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">Add Custom Flashcard</h2>
+            <form id="add-card-form" class="space-y-3 sm:space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1 sm:mb-2">Language</label>
+                    <select id="custom-language" class="w-full px-3 sm:px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent text-white text-sm sm:text-base" required>
+                        <option value="english" class="bg-[#0F172A] text-white">English</option>
+                        <option value="turkish" class="bg-[#0F172A] text-white">Turkish 🇹🇷</option>
+                        <option value="german" class="bg-[#0F172A] text-white">German 🇩🇪</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1 sm:mb-2">Difficulty</label>
+                    <select id="custom-difficulty" class="w-full px-3 sm:px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent text-white text-sm sm:text-base" required>
+                        <option value="beginner" class="bg-[#0F172A] text-white">Beginner</option>
+                        <option value="intermediate" class="bg-[#0F172A] text-white">Intermediate</option>
+                        <option value="advanced" class="bg-[#0F172A] text-white">Advanced</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1 sm:mb-2">Word</label>
+                    <input type="text" id="custom-word" class="w-full px-3 sm:px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent text-white text-sm sm:text-base" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1 sm:mb-2">Translation</label>
+                    <input type="text" id="custom-translation" class="w-full px-3 sm:px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent text-white text-sm sm:text-base" required>
+                </div>
+                <div class="flex justify-end space-x-3 sm:space-x-4">
+                    <button type="button" id="cancel-add" class="px-3 sm:px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm sm:text-base">Cancel</button>
+                    <button type="submit" class="px-3 sm:px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white hover:scale-105 transition-all text-sm sm:text-base">Add Card</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-[#1E293B] rounded-2xl p-4 sm:p-8 max-w-md w-full mx-4 transform transition-all duration-300">
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">Keyboard Shortcuts</h2>
+            <div class="space-y-3 sm:space-y-4">
+                <div class="flex justify-between items-center text-sm sm:text-base">
+                    <span>Flip Card</span>
+                    <kbd class="px-2 py-1 bg-white/10 rounded">Space</kbd>
+                </div>
+                <div class="flex justify-between items-center text-sm sm:text-base">
+                    <span>Next Card</span>
+                    <kbd class="px-2 py-1 bg-white/10 rounded">→</kbd>
+                </div>
+                <div class="flex justify-between items-center text-sm sm:text-base">
+                    <span>Previous Card</span>
+                    <kbd class="px-2 py-1 bg-white/10 rounded">←</kbd>
+                </div>
+                <div class="flex justify-between items-center text-sm sm:text-base">
+                    <span>Toggle Theme</span>
+                    <kbd class="px-2 py-1 bg-white/10 rounded">T</kbd>
+                </div>
+            </div>
+            <div class="mt-4 sm:mt-6 flex justify-end">
+                <button id="close-help" class="px-3 sm:px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm sm:text-base">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
