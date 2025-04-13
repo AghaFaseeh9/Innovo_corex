@@ -8,7 +8,7 @@ An interactive, mobile-friendly web application designed to help users learn voc
 
 ## 🚀 Live Demo
 
-🔗 [View Project on Vercel](https://language-flashcards-innovotech.vercel.app)
+🔗 [View Project on Vercel](https://innovo-corex.vercel.app/)
 
 ---
 
