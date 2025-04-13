@@ -1,6 +1,6 @@
 # 🌍 Language Flashcards App
 
-> 📝 **Task 01 – Internship Project by [Your Name]**
+> 📝 **Task 01**
 
 An interactive, mobile-friendly web application designed to help users learn vocabulary in different languages through flashcards. Built with **HTML, CSS, and JavaScript**, the app includes modern animations and a clean user interface.
 
