@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Digital Business Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <div class="card">
+            <!-- Front of the card -->
+            <div class="card-front">
+                <div class="profile-image">
+                    <img src="https://placehold.co/150x150/4a90e2/ffffff?text=" alt="Profile Picture">
+                    <div class="status-indicator"></div>
+                </div>
+                <h1 class="name">John Doe</h1>
+                <p class="title">Frontend Developer</p>
+                <p class="tagline typing-text">Crafting beautiful web experiences</p>
+                <div class="skills">
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+                <button class="flip-btn">
+                    <span>View More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Back of the card -->
+            <div class="card-back">
+                <h2>About Me</h2>
+                <p class="bio">Passionate frontend developer with a keen eye for design and user experience. Always learning and exploring new technologies.</p>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Years</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Success</span>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" class="social-icon" data-tooltip="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="social-icon" data-tooltip="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" target="_blank" class="social-icon" data-tooltip="Portfolio">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                </div>
+
+                <button class="contact-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact Me</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Send Message</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                    <span class="input-focus-effect"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                    <span class="input-focus-effect"></span>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" required></textarea>
+                    <span class="input-focus-effect"></span>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span>Send Message</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
